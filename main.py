@@ -3,6 +3,21 @@ import logging
 from telegram import InlineQueryResultArticle, InputTextMessageContent
 
 updater = Updater(token='1764514462:AAEA6Bf2DWwYcNw4Md78sm75dLncV9_QZME', use_context=True)
+PORT = '8443'
+TELEGRAM_TOKEN = '1764514462:AAEA6Bf2DWwYcNw4Md78sm75dLncV9_QZME'
+# запускаем слушающий вебсервер
+updater.start_webhook(
+  listen="0.0.0.0",
+  port=PORT,  # HEROKU требует, чтобы порт вебсервера задавался через переменные окружения
+  url_path=TELEGRAM_TOKEN  # добавляем секретное значение в адрес, который слушаем
+)
+
+# говорим Телеграму: "присылай события бота по этому адресу"
+HEROKU_APP_NAME = 'app-t-bot'
+updater.bot.set_webhook(f"https://{HEROKU_APP_NAME}.herokuapp.com/{TELEGRAM_TOKEN}")
+updater.idle()
+
+
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 

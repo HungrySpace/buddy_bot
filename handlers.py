@@ -103,5 +103,5 @@ def sql_table(Mmessage, command, val=None):
 def setup_dispatcher(dp):
     dp.add_handler(CommandHandler('help', handle_start_help))
     dp.add_handler(MessageHandler(Filters.text & (~Filters.command), start_message))
-    dp.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
+    # dp.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
     return dp

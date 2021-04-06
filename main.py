@@ -6,14 +6,14 @@ from settings import TELEGRAM_TOKEN, HEROKU_APP_NAME, PORT
 
 updater = Updater(token=TELEGRAM_TOKEN, use_context=True)
 
-# updater.start_webhook(
-#     listen="0.0.0.0",
-#     port=PORT,
-#     url_path=TELEGRAM_TOKEN,
-#     webhook_url=f"https://{HEROKU_APP_NAME}.herokuapp.com/{TELEGRAM_TOKEN}"
-# )
-#
-# updater.idle()
+updater.start_webhook(
+    listen="0.0.0.0",
+    port=PORT,
+    url_path=TELEGRAM_TOKEN,
+    webhook_url=f"https://{HEROKU_APP_NAME}.herokuapp.com/{TELEGRAM_TOKEN}"
+)
+
+updater.idle()
 
 
 dispatcher = updater.dispatcher

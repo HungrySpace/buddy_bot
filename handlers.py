@@ -2,6 +2,7 @@ import os
 import random
 from telegram.ext import MessageHandler, Filters, CommandHandler
 import sqlite3
+from video_download import get_video
 
 
 def echo(update, context):
@@ -23,32 +24,26 @@ def start_message(update, context):
 
     message_txt = str(update.message.text)
     if message_txt.lower().find('бот') == 0:
-        print('прошел1')
         if len(message_txt) > 3:
-            print('прошел2')
             if message_txt[3] == ".":
-                print('прошел3')
                 message_txt = message_txt[4:len(message_txt)].lower().strip()
                 otvet = sql_table(message_txt, ".")
                 # print(otvet)
                 context.bot.send_message(chat_id=message_id, text=str(otvet))
             elif message_txt[3] == "!":
-                print('прошел4')
                 if len(message_txt) > 4:
                     if message_txt.find('#') > 0:
-                        print('прошел5')
                         arrOtvet = message_txt.split('#')
                         txtValue = str(arrOtvet[1]).lower().strip()
                         message_txt = message_txt[4:message_txt.find("#")].lower().strip()
                         otvet = sql_table(message_txt, "!", txtValue)
                         context.bot.send_message(chat_id=message_id, text=str(otvet))
-            # print('прошел6')
-            # send_msg(message.chat.id, "Я тут! у меня появились две команды. "
-            #                           "Первая это узнать что либо у меня [Бот. твое сообщение] и "
-            #                           "Вторая это обучение [Бот! твое сообщение # ответ на него]")
-            # bot.send_message(message.chat.id, "Я тут! у меня появились две команды. "
-            #                                   "Первая это узнать что либо у меня [Бот. твое сообщение] и "
-            #                                   "Вторая это обучение [Бот! твое сообщение # ответ на него]")
+    elif message_txt.lower().find('https://') == 0:
+        context.bot.send_message(chat_id="-1001263523681", text=str("загружаю(возможно)"))
+        try:
+            context.bot.send_video(message_id, get_video(message_txt))
+        except:
+            context.bot.send_message(chat_id="-1001263523681", text=str("ВСЕ В ГОВНЕ!"))
 
 
 def sql_table(Mmessage, command, val=None):

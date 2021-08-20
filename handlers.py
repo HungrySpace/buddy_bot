@@ -45,7 +45,7 @@ def start_message(update, context):
             context.bot.send_video(message_id, get_video(message_txt, context, message_id))
         except Exception as e:
             print(e)
-            # context.bot.send_message(chat_id="-1001263523681", text=str(e))
+            context.bot.send_message(chat_id=message_id, text=str(e))
 
 
 def sql_table(Mmessage, command, val=None):

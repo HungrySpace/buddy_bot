@@ -39,11 +39,13 @@ def start_message(update, context):
                         otvet = sql_table(message_txt, "!", txtValue)
                         context.bot.send_message(chat_id=message_id, text=str(otvet))
     elif message_txt.lower().find('https://') == 0:
-        context.bot.send_message(chat_id="-1001263523681", text=str("загружаю(возможно)"))
+        #context.bot.send_message(chat_id="-1001263523681", text=str("загружаю(возможно)"))
+        context.bot.send_message(chat_id=message_id, text=str("загружаю(возможно)"))
         try:
-            context.bot.send_video(message_id, get_video(message_txt))
-        except:
-            context.bot.send_message(chat_id="-1001263523681", text=str("ВСЕ В ГОВНЕ!"))
+            context.bot.send_video(message_id, get_video(message_txt, context, message_id))
+        except Exception as e:
+            print(e)
+            # context.bot.send_message(chat_id="-1001263523681", text=str(e))
 
 
 def sql_table(Mmessage, command, val=None):

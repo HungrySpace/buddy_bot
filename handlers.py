@@ -39,6 +39,7 @@ def start_message(update, context):
                         otvet = sql_table(message_txt, "!", txtValue)
                         context.bot.send_message(chat_id=message_id, text=str(otvet))
     elif message_txt.lower().find('https://') == 0:
+        #
         # context.bot.send_message(chat_id="-1001263523681", text=str("загружаю(возможно)"))
         try:
             context.bot.send_video(message_id, get_video(message_txt))

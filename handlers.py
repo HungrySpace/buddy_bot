@@ -42,7 +42,8 @@ def start_message(update, context):
         #
         # context.bot.send_message(chat_id="-1001263523681", text=str("загружаю(возможно)"))
         try:
-            context.bot.send_video(message_id, get_video(message_txt))
+            # context.bot.send_video(message_id, get_video(message_txt))
+            get_video(message_txt, context, message_id)
         except:
             print("Все в говне")
             # context.bot.send_message(chat_id="-1001263523681", text=str("ВСЕ В ГОВНЕ!"))

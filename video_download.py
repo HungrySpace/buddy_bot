@@ -36,8 +36,8 @@ def get_video(link_to_video, context, message):
         context.bot.send_video(message.chat_id, open('jopa.mp4', 'rb'))
         #video = open('jopa.mp4', 'rb')
         os.remove('jopa.mp4')
-        context.bot.delete_message(chat_id=message.chat_id,
-               message_id=message.message_id,)
+        #context.bot.delete_message(chat_id=message.chat_id,
+        #       message_id=message.message_id,)
 
         return 1
     except Exception as e:

@@ -8,7 +8,7 @@ import os
 # = str(input('Введите ссылку на видео: '))
 
 
-def get_video(link_to_video, context, message_id):
+def get_video(link_to_video, context, message):
     try:
         # print(link_to_video)
         # # link_to_video = link_to_video.replace(link_to_video[-1], '')
@@ -33,9 +33,12 @@ def get_video(link_to_video, context, message_id):
         with youtube_dl.YoutubeDL({'outtmpl': 'jopa.mp4'}) as ydl:
             ydl.download([link_to_video])
 
-        context.bot.send_video(message_id, open('jopa.mp4', 'rb'))
+        context.bot.send_video(message.chat_id, open('jopa.mp4', 'rb'))
         #video = open('jopa.mp4', 'rb')
         os.remove('jopa.mp4')
+        context.bot.delete_message(chat_id=message.chat_id,
+               message_id=message.message_id,)
+
         return 1
     except Exception as e:
         return e
